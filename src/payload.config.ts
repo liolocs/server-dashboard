@@ -1,39 +1,28 @@
 // storage-adapter-import-placeholder
-import { postgresAdapter } from '@payloadcms/db-postgres'
+import { postgresAdapter } from '@payloadcms/db-postgres';
 
-import { payloadCloudPlugin } from '@payloadcms/plugin-cloud'
-import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
-import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
-import { redirectsPlugin } from '@payloadcms/plugin-redirects'
-import { searchPlugin } from '@payloadcms/plugin-search'
-import { seoPlugin } from '@payloadcms/plugin-seo'
 import {
   BoldFeature,
-  FixedToolbarFeature,
-  HeadingFeature,
   ItalicFeature,
   LinkFeature,
   UnderlineFeature,
-  lexicalEditor,
-} from '@payloadcms/richtext-lexical'
-import path from 'path'
-import { buildConfig } from 'payload'
+  lexicalEditor
+} from '@payloadcms/richtext-lexical';
+import path from 'path';
+import { buildConfig } from 'payload';
 import sharp from 'sharp'; // editor-import
-import { fileURLToPath } from 'url'
+import { fileURLToPath } from 'url';
 
-import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types'
-import { Page, Post } from 'src/payload-types'
-import Categories from './collections/Categories'
-import { Media } from './collections/Media'
-import { Pages } from './collections/Pages'
-import { Posts } from './collections/Posts'
-import Users from './collections/Users'
-import { seedHandler } from './endpoints/seedHandler'
-import { Footer } from './Footer/config'
-import { revalidateRedirects } from './hooks/revalidateRedirects'
+import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types';
+import { Page, Post } from 'src/payload-types';
+import Categories from './collections/Categories';
+import { Media } from './collections/Media';
+import { Pages } from './collections/Pages';
+import { Posts } from './collections/Posts';
+import Users from './collections/Users';
+import { seedHandler } from './endpoints/seedHandler';
+import { Footer } from './Footer/config';
 
-import { beforeSyncWithSearch } from '@/search/beforeSync'
-import { searchFields } from '@/search/fieldOverrides'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -122,7 +111,7 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URI || '',
     },
   }),
-  collections: [Pages, Posts, Media, Categories, Users],
+  collections: [Pages, Users, Posts, Categories, Media],
   cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
   endpoints: [
@@ -135,73 +124,7 @@ export default buildConfig({
     },
   ],
   globals: [Footer],
-  plugins: [
-    redirectsPlugin({
-      collections: ['pages', 'posts'],
-      overrides: {
-        // @ts-expect-error
-        fields: ({ defaultFields }) => {
-          return defaultFields.map((field) => {
-            if ('name' in field && field.name === 'from') {
-              return {
-                ...field,
-                admin: {
-                  description: 'You will need to rebuild the website when changing this field.',
-                },
-              }
-            }
-            return field
-          })
-        },
-        hooks: {
-          afterChange: [revalidateRedirects],
-        },
-      },
-    }),
-    nestedDocsPlugin({
-      collections: ['categories'],
-    }),
-    seoPlugin({
-      generateTitle,
-      generateURL,
-    }),
-    formBuilderPlugin({
-      fields: {
-        payment: false,
-      },
-      formOverrides: {
-        fields: ({ defaultFields }) => {
-          return defaultFields.map((field) => {
-            if ('name' in field && field.name === 'confirmationMessage') {
-              return {
-                ...field,
-                editor: lexicalEditor({
-                  features: ({ rootFeatures }) => {
-                    return [
-                      ...rootFeatures,
-                      FixedToolbarFeature(),
-                      HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-                    ]
-                  },
-                }),
-              }
-            }
-            return field
-          })
-        },
-      },
-    }),
-    searchPlugin({
-      collections: ['posts'],
-      beforeSync: beforeSyncWithSearch,
-      searchOverrides: {
-        fields: ({ defaultFields }) => {
-          return [...defaultFields, ...searchFields]
-        },
-      },
-    }),
-    payloadCloudPlugin(), // storage-adapter-placeholder
-  ],
+  plugins: [],
   secret: process.env.PAYLOAD_SECRET!,
   sharp,
   typescript: {
