@@ -4,28 +4,15 @@ import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
-import { contactForm as contactFormData } from './contact-form'
-import { contact as contactPageData } from './contact-page'
 import { home } from './home'
-import { image1 } from './image-1'
-import { image2 } from './image-2'
-import { post1 } from './post-1'
-import { post2 } from './post-2'
-import { post3 } from './post-3'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 const collections: CollectionSlug[] = [
-  'categories',
-  'media',
   'pages',
-  'posts',
-  'forms',
-  'form-submissions',
-  'search',
 ]
-const globals: GlobalSlug[] = ['header', 'footer']
+const globals: GlobalSlug[] = ['footer']
 
 // Next.js revalidation errors are normal when seeding the database without a server running
 // i.e. running `yarn seed` locally instead of using the admin UI within an active app
@@ -85,242 +72,13 @@ export const seed = async ({
 
   console.log({ pages })
 
-  payload.logger.info(`— Seeding demo author and user...`)
-
-  await payload.delete({
-    collection: 'users',
-    where: {
-      email: {
-        equals: 'demo-author@payloadcms.com',
-      },
-    },
-    req,
-  })
-
-  const demoAuthor = await payload.create({
-    collection: 'users',
-    data: {
-      name: 'Demo Author',
-      email: 'demo-author@payloadcms.com',
-      password: 'password',
-    },
-    req,
-  })
-
-  let demoAuthorID: number | string = demoAuthor.id
-
-  payload.logger.info(`— Seeding media...`)
-  const image1Doc = await payload.create({
-    collection: 'media',
-    data: image1,
-    filePath: path.resolve(dirname, 'image-post1.webp'),
-    req,
-  })
-  const image2Doc = await payload.create({
-    collection: 'media',
-    data: image2,
-    filePath: path.resolve(dirname, 'image-post2.webp'),
-    req,
-  })
-  const image3Doc = await payload.create({
-    collection: 'media',
-    data: image2,
-    filePath: path.resolve(dirname, 'image-post3.webp'),
-    req,
-  })
-  const imageHomeDoc = await payload.create({
-    collection: 'media',
-    data: image2,
-    filePath: path.resolve(dirname, 'image-hero1.webp'),
-    req,
-  })
-
-  payload.logger.info(`— Seeding categories...`)
-  const technologyCategory = await payload.create({
-    collection: 'categories',
-    data: {
-      title: 'Technology',
-    },
-    req,
-  })
-
-  const newsCategory = await payload.create({
-    collection: 'categories',
-    data: {
-      title: 'News',
-    },
-    req,
-  })
-
-  const financeCategory = await payload.create({
-    collection: 'categories',
-    data: {
-      title: 'Finance',
-    },
-    req,
-  })
-
-  await payload.create({
-    collection: 'categories',
-    data: {
-      title: 'Design',
-    },
-    req,
-  })
-
-  await payload.create({
-    collection: 'categories',
-    data: {
-      title: 'Software',
-    },
-    req,
-  })
-
-  await payload.create({
-    collection: 'categories',
-    data: {
-      title: 'Engineering',
-    },
-    req,
-  })
-
-  let image1ID: number | string = image1Doc.id
-  let image2ID: number | string = image2Doc.id
-  let image3ID: number | string = image3Doc.id
-  let imageHomeID: number | string = imageHomeDoc.id
-
-  if (payload.db.defaultIDType === 'text') {
-    image1ID = `"${image1Doc.id}"`
-    image2ID = `"${image2Doc.id}"`
-    image3ID = `"${image3Doc.id}"`
-    imageHomeID = `"${imageHomeDoc.id}"`
-    demoAuthorID = `"${demoAuthorID}"`
-  }
-
-  payload.logger.info(`— Seeding posts...`)
-
-  // Do not create posts with `Promise.all` because we want the posts to be created in order
-  // This way we can sort them by `createdAt` or `publishedAt` and they will be in the expected order
-  const post1Doc = await payload.create({
-    collection: 'posts',
-    data: JSON.parse(
-      JSON.stringify({ ...post1, categories: [technologyCategory.id] })
-        .replace(/"\{\{IMAGE_1\}\}"/g, String(image1ID))
-        .replace(/"\{\{IMAGE_2\}\}"/g, String(image2ID))
-        .replace(/"\{\{AUTHOR\}\}"/g, String(demoAuthorID)),
-    ),
-    req,
-  })
-
-  const post2Doc = await payload.create({
-    collection: 'posts',
-    data: JSON.parse(
-      JSON.stringify({ ...post2, categories: [newsCategory.id] })
-        .replace(/"\{\{IMAGE_1\}\}"/g, String(image2ID))
-        .replace(/"\{\{IMAGE_2\}\}"/g, String(image3ID))
-        .replace(/"\{\{AUTHOR\}\}"/g, String(demoAuthorID)),
-    ),
-    req,
-  })
-
-  const post3Doc = await payload.create({
-    collection: 'posts',
-    data: JSON.parse(
-      JSON.stringify({ ...post3, categories: [financeCategory.id] })
-        .replace(/"\{\{IMAGE_1\}\}"/g, String(image3ID))
-        .replace(/"\{\{IMAGE_2\}\}"/g, String(image1ID))
-        .replace(/"\{\{AUTHOR\}\}"/g, String(demoAuthorID)),
-    ),
-    req,
-  })
-
-  // update each post with related posts
-  await payload.update({
-    id: post1Doc.id,
-    collection: 'posts',
-    data: {
-      relatedPosts: [post2Doc.id, post3Doc.id],
-    },
-    req,
-  })
-  await payload.update({
-    id: post2Doc.id,
-    collection: 'posts',
-    data: {
-      relatedPosts: [post1Doc.id, post3Doc.id],
-    },
-    req,
-  })
-  await payload.update({
-    id: post3Doc.id,
-    collection: 'posts',
-    data: {
-      relatedPosts: [post1Doc.id, post2Doc.id],
-    },
-    req,
-  })
-
   payload.logger.info(`— Seeding home page...`)
 
   await payload.create({
     collection: 'pages',
     data: JSON.parse(
       JSON.stringify(home)
-        .replace(/"\{\{IMAGE_1\}\}"/g, String(imageHomeID))
-        .replace(/"\{\{IMAGE_2\}\}"/g, String(image2ID)),
     ),
-    req,
-  })
-
-  payload.logger.info(`— Seeding contact form...`)
-
-  const contactForm = await payload.create({
-    collection: 'forms',
-    data: JSON.parse(JSON.stringify(contactFormData)),
-    req,
-  })
-
-  let contactFormID: number | string = contactForm.id
-
-  if (payload.db.defaultIDType === 'text') {
-    contactFormID = `"${contactFormID}"`
-  }
-
-  payload.logger.info(`— Seeding contact page...`)
-
-  const contactPage = await payload.create({
-    collection: 'pages',
-    data: JSON.parse(
-      JSON.stringify(contactPageData).replace(/"\{\{CONTACT_FORM_ID\}\}"/g, String(contactFormID)),
-    ),
-    req,
-  })
-
-  payload.logger.info(`— Seeding header...`)
-
-  await payload.updateGlobal({
-    slug: 'header',
-    data: {
-      navItems: [
-        {
-          link: {
-            type: 'custom',
-            label: 'Posts',
-            url: '/posts',
-          },
-        },
-        {
-          link: {
-            type: 'reference',
-            label: 'Contact',
-            reference: {
-              relationTo: 'pages',
-              value: contactPage.id,
-            },
-          },
-        },
-      ],
-    },
     req,
   })
 
