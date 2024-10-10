@@ -15,10 +15,7 @@ import { fileURLToPath } from 'url';
 
 import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types';
 import { Page, Post } from 'src/payload-types';
-import Categories from './collections/Categories';
-import { Media } from './collections/Media';
 import { Pages } from './collections/Pages';
-import { Posts } from './collections/Posts';
 import Users from './collections/Users';
 import { seedHandler } from './endpoints/seedHandler';
 import { Footer } from './Footer/config';
@@ -82,7 +79,7 @@ export default buildConfig({
         BoldFeature(),
         ItalicFeature(),
         LinkFeature({
-          enabledCollections: ['pages', 'posts'],
+          enabledCollections: ['pages'],
           fields: ({ defaultFields }) => {
             const defaultFieldsWithoutUrl = defaultFields.filter((field) => {
               if ('name' in field && field.name === 'url') return false
@@ -111,7 +108,7 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URI || '',
     },
   }),
-  collections: [Pages, Users, Posts, Categories, Media],
+  collections: [Pages, Users],
   cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
   endpoints: [
