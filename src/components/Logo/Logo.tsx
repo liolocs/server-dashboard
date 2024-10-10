@@ -1,12 +1,10 @@
-import React from 'react'
+import { LayoutDashboard } from "lucide-react"
 
 export const Logo = () => {
   return (
-    /* eslint-disable @next/next/no-img-element */
-    <img
-      alt="Payload Logo"
-      className="max-w-[9.375rem] invert dark:invert-0"
-      src="https://raw.githubusercontent.com/payloadcms/payload/main/packages/payload/src/admin/assets/images/payload-logo-light.svg"
-    />
+    <div className="flex flex-row items-center gap-2">
+      <LayoutDashboard className="w-6 h-6" />
+    <p>Server Dashboard</p>
+    </div>
   )
 }
