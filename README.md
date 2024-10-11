@@ -9,7 +9,7 @@ Server Dashboard is an open-source project aimed at providing a superior alterna
 - 🖥️ Intuitive admin interface powered by PayloadCMS
 - 🔧 Easy customization through the admin dashboard
 - 🚀 Docker-based development environment
-- 🐳 Simple deployment on Coolify using Docker Compose
+- 🔒 Secure and scalable architecture
 
 ## 🚀 Getting Started
 
@@ -19,11 +19,11 @@ Server Dashboard is an open-source project aimed at providing a superior alterna
 - Node.js (v18 or later recommended)
 - Yarn package manager
 
-### Running in Development Mode
+### Setting Up Your Development Environment
 
 1. Clone the repository:
    ```
-   git clone https://github.com/liolocs/server-dashboard.git
+   git clone https://github.com/yourusername/server-dashboard.git
    cd server-dashboard
    ```
 
@@ -48,6 +48,22 @@ Server Dashboard is an open-source project aimed at providing a superior alterna
 4. Once the services are up and running, you can access:
    - The frontend application at `http://localhost:3000`
    - The PayloadCMS admin dashboard at `http://localhost:3000/admin`
+
+## 🚀 Deploying with Coolify
+
+To deploy this project using Coolify:
+
+1. Set up a new project in Coolify pointing to this repository.
+2. In the Coolify dashboard, set the following environment variables:
+   - `PAYLOAD_SECRET`: A secure random string for PayloadCMS
+   - `PAYLOAD_PUBLIC_SERVER_URL`: The public URL of your server
+   - `POSTGRES_DB`: The name of your PostgreSQL database
+   - `POSTGRES_USER`: The username for your PostgreSQL database
+   - `POSTGRES_PASSWORD`: The password for your PostgreSQL database
+   - `NEXT_PUBLIC_SERVER_URL`: The public URL of your server (same as PAYLOAD_PUBLIC_SERVER_URL)
+3. Deploy the project using the `docker-compose.production.yml` file.
+
+Coolify will inject these environment variables into your containers at runtime, ensuring a secure and flexible deployment process.
 
 ## 🤝 Contributing
 
