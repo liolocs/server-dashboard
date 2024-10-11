@@ -1,21 +1,22 @@
 FROM node:18-alpine AS base
 
+FROM base AS deps
+WORKDIR /app
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
+
 FROM base AS builder
-WORKDIR /home/node/app
-COPY package*.json yarn.lock ./
-RUN yarn install
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN yarn build
 
-FROM base as runtime
-ENV NODE_ENV=production
-WORKDIR /home/node/app
-COPY package*.json ./
-COPY yarn.lock ./
+FROM base AS runner
+WORKDIR /app
+ENV NODE_ENV production
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/package.json ./package.json
 RUN yarn install --production
-# Copy the built files from the builder stage
-COPY --from=builder /home/node/app/dist ./dist
-# COPY --from=builder /home/node/app/build ./build
 
 EXPOSE 3000
 CMD ["node", "dist/server.js"]
