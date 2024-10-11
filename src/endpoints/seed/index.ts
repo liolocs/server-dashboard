@@ -1,6 +1,5 @@
 import type { CollectionSlug, GlobalSlug, Payload, PayloadRequest } from 'payload'
 
-import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
@@ -31,13 +30,6 @@ export const seed = async ({
   // as well as the collections and globals
   // this is because while `yarn seed` drops the database
   // the custom `/api/seed` endpoint does not
-
-  payload.logger.info(`— Clearing media...`)
-
-  const mediaDir = path.resolve(dirname, '../../public/media')
-  if (fs.existsSync(mediaDir)) {
-    fs.rmdirSync(mediaDir, { recursive: true })
-  }
 
   payload.logger.info(`— Clearing collections and globals...`)
 
@@ -70,8 +62,6 @@ export const seed = async ({
     req,
   })
 
-  console.log({ pages })
-
   payload.logger.info(`— Seeding home page...`)
 
   await payload.create({
@@ -93,22 +83,6 @@ export const seed = async ({
             type: 'custom',
             label: 'Admin',
             url: '/admin',
-          },
-        },
-        {
-          link: {
-            type: 'custom',
-            label: 'Source Code',
-            newTab: true,
-            url: 'https://github.com/payloadcms/payload/tree/beta/templates/website',
-          },
-        },
-        {
-          link: {
-            type: 'custom',
-            label: 'Payload',
-            newTab: true,
-            url: 'https://payloadcms.com/',
           },
         },
       ],
