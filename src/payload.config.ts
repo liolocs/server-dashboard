@@ -14,21 +14,21 @@ import sharp from 'sharp'; // editor-import
 import { fileURLToPath } from 'url';
 
 import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types';
-import { Page, Post } from 'src/payload-types';
 import { Pages } from './collections/Pages';
 import Users from './collections/Users';
 import { seedHandler } from './endpoints/seedHandler';
 import { Footer } from './Footer/config';
+import { Page } from './payload-types';
 
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
+const generateTitle: GenerateTitle<Page> = ({ doc }) => {
   return doc?.title ? `${doc.title} | Payload Website Template` : 'Payload Website Template'
 }
 
-const generateURL: GenerateURL<Post | Page> = ({ doc }) => {
+const generateURL: GenerateURL<Page> = ({ doc }) => {
   return doc?.slug
     ? `${process.env.NEXT_PUBLIC_SERVER_URL!}/${doc.slug}`
     : process.env.NEXT_PUBLIC_SERVER_URL!

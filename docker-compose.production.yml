@@ -2,26 +2,23 @@ version: '3'
 
 services:
   payload:
-    image: node:18-alpine
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - '3000:3000'
-    volumes:
-      - ./:/home/node/app
-      - node_modules:/home/node/app/node_modules
-    working_dir: /home/node/app/
-    command: sh -c "yarn install && yarn build && yarn start"
-    depends_on:
-      - postgres
     environment:
       NODE_ENV: production
       PAYLOAD_SECRET: ${PAYLOAD_SECRET}
-      PAYLOAD_CONFIG_PATH: ${PAYLOAD_CONFIG_PATH:-dist/payload.config.js}
+      PAYLOAD_CONFIG_PATH: dist/payload.config.js
       PAYLOAD_PUBLIC_SERVER_URL: ${PAYLOAD_PUBLIC_SERVER_URL}
       DATABASE_URI: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
       NEXT_PUBLIC_SERVER_URL: ${NEXT_PUBLIC_SERVER_URL}
       REVALIDATION_KEY: ${REVALIDATION_KEY}
       NEXT_PRIVATE_REVALIDATION_KEY: ${NEXT_PRIVATE_REVALIDATION_KEY}
     restart: unless-stopped
+    depends_on:
+      - postgres
     networks:
       - app-network
 
@@ -39,7 +36,6 @@ services:
 
 volumes:
   postgres_data:
-  node_modules:
 
 networks:
   app-network:
