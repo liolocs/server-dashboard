@@ -47,6 +47,10 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    autoLogin: process.env.NODE_ENV === 'development' && {
+      email: process.env.PAYLOAD_ADMIN_EMAIL,
+      password: process.env.PAYLOAD_ADMIN_PASSWORD,
+    },
     user: Users.slug,
     livePreview: {
       breakpoints: [

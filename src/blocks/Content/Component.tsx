@@ -1,6 +1,6 @@
-import { cn } from 'src/utilities/cn'
-import React from 'react'
 import RichText from '@/components/RichText'
+import React from 'react'
+import { cn } from 'src/utilities/cn'
 
 import type { Page } from '@/payload-types'
 
@@ -39,7 +39,12 @@ export const ContentBlock: React.FC<
               >
                 {richText && <RichText content={richText} enableGutter={false} />}
 
-                {enableLink && <CMSLink {...link} />}
+
+                {enableLink && (
+                  <div className="mt-2">
+                    <CMSLink {...link} />
+                  </div>
+                )}
               </div>
             )
           })}
