@@ -1,27 +1,6 @@
 version: '3'
 
 services:
-  payload:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - '3000:3000'
-    environment:
-      NODE_ENV: production
-      PAYLOAD_SECRET: ${PAYLOAD_SECRET}
-      PAYLOAD_CONFIG_PATH: dist/payload.config.js
-      PAYLOAD_PUBLIC_SERVER_URL: ${PAYLOAD_PUBLIC_SERVER_URL}
-      DATABASE_URI: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
-      NEXT_PUBLIC_SERVER_URL: ${NEXT_PUBLIC_SERVER_URL}
-      REVALIDATION_KEY: ${REVALIDATION_KEY}
-      NEXT_PRIVATE_REVALIDATION_KEY: ${NEXT_PRIVATE_REVALIDATION_KEY}
-    restart: unless-stopped
-    depends_on:
-      - postgres
-    networks:
-      - app-network
-
   postgres:
     image: postgres:13
     volumes:
@@ -31,6 +10,34 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     restart: unless-stopped
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  payload:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: builder
+    ports:
+      - '3000:3000'
+    environment:
+      NODE_ENV: production
+      PAYLOAD_SECRET: ${PAYLOAD_SECRET}
+      PAYLOAD_PUBLIC_SERVER_URL: ${PAYLOAD_PUBLIC_SERVER_URL}
+      DATABASE_URI: postgres://${POSTGRES_USER:-payloaduser}:${POSTGRES_PASSWORD:-payloadpass}@postgres:5432/${POSTGRES_DB:-server-dashboard-prod}
+      NEXT_PUBLIC_SERVER_URL: ${NEXT_PUBLIC_SERVER_URL}
+      REVALIDATION_KEY: ${REVALIDATION_KEY}
+      NEXT_PRIVATE_REVALIDATION_KEY: ${NEXT_PRIVATE_REVALIDATION_KEY}
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: sh -c "echo 'starting build' && yarn build && echo 'starting app' && yarn start"
     networks:
       - app-network
 

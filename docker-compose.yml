@@ -16,7 +16,7 @@ services:
     env_file:
       - .env
     environment:
-      DATABASE_URI: postgres://${POSTGRES_USER:-payloaduser}:${POSTGRES_PASSWORD:-payloadpass}@postgres:5432/${POSTGRES_DB:-payloadcms}
+      DATABASE_URI: postgres://${POSTGRES_USER:-payloaduser}:${POSTGRES_PASSWORD:-payloadpass}@postgres:5432/${POSTGRES_DB:-server-dashboard}
     networks:
       - app-network
 
@@ -27,7 +27,7 @@ services:
     volumes:
       - data:/var/lib/postgresql/data
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-payloadcms}
+      POSTGRES_DB: ${POSTGRES_DB:-server-dashboard}
       POSTGRES_USER: ${POSTGRES_USER:-payloaduser}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-payloadpass}
     networks:
