@@ -1,22 +1,24 @@
-FROM node:18-alpine AS base
+FROM node:18-alpine as base
 
-FROM base AS deps
-WORKDIR /home/node/app
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+FROM base as builder
 
-FROM base AS builder
 WORKDIR /home/node/app
-COPY --from=deps /home/node/app/node_modules ./node_modules
+COPY package*.json ./
 COPY . .
-# RUN yarn build
+RUN yarn add --frozen-lockfile --ignore-scripts=false --verbose sharp
+RUN yarn install
+RUN yarn build:prod
+RUN yarn payload migrate
 
-# FROM base AS runner
-# WORKDIR /home/node/app
-# ENV NODE_ENV production
-# COPY --from=builder /home/node/app/dist ./dist
-# COPY --from=builder /home/node/app/package.json ./package.json
-# RUN yarn install --production
+FROM base as runtime
+ENV NODE_ENV=production
+WORKDIR /home/node/app
+COPY package*.json  ./
+COPY yarn.lock ./
+COPY --from=builder /home/node/app/.next ./.next
+COPY --from=builder /home/node/app/payload.sqlite ./payload.sqlite
+RUN yarn install --production
 
 EXPOSE 3000
-# CMD ["node", "dist/server.js"]
+
+CMD ["yarn", "start"]

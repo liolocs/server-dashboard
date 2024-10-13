@@ -1,25 +1,24 @@
 // storage-adapter-import-placeholder
-import { postgresAdapter } from '@payloadcms/db-postgres';
 
+import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import {
   BoldFeature,
   ItalicFeature,
   LinkFeature,
   UnderlineFeature,
-  lexicalEditor
-} from '@payloadcms/richtext-lexical';
-import path from 'path';
-import { buildConfig } from 'payload';
-import sharp from 'sharp'; // editor-import
-import { fileURLToPath } from 'url';
+  lexicalEditor,
+} from '@payloadcms/richtext-lexical'
+import path from 'path'
+import { buildConfig } from 'payload'
+import sharp from 'sharp' // editor-import
+import { fileURLToPath } from 'url'
 
-import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types';
-import { Pages } from './collections/Pages';
-import Users from './collections/Users';
-import { seedHandler } from './endpoints/seedHandler';
-import { Footer } from './Footer/config';
-import { Page } from './payload-types';
-
+import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types'
+import { Pages } from './collections/Pages'
+import Users from './collections/Users'
+import { seedHandler } from './endpoints/seedHandler'
+import { Footer } from './Footer/config'
+import { Page } from './payload-types'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -35,6 +34,16 @@ const generateURL: GenerateURL<Page> = ({ doc }) => {
 }
 
 export default buildConfig({
+  // async onInit(payload) {
+  //   const existingUsers = await payload.find({
+  //     collection: 'users',
+  //     limit: 1,
+  //   })
+
+  //   if (!existingUsers.docs.length) {
+  //     await seedHandler2({ payload })
+  //   }
+  // },
   admin: {
     components: {
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
@@ -107,10 +116,25 @@ export default buildConfig({
       ]
     },
   }),
-  db: postgresAdapter({
-    pool: {
-      connectionString: process.env.DATABASE_URI || '',
+  // db: postgresAdapter({
+  //   pool: {
+  //     connectionString: process.env.DATABASE_URI || '',
+  //   },
+  // }),
+  db: sqliteAdapter({
+    client: {
+      url: process.env.DATABASE_URL || '',
+      authToken: process.env.DATABASE_AUTH_TOKEN || '',
     },
+    // prodMigrations: [
+    //   {
+    //     name: 'initial',
+    //     up: async ({ payload, req }) => {
+    //       await seedHandler2({ payload })
+    //     },
+    //     down: async () => {},
+    //   },
+    // ],
   }),
   collections: [Pages, Users],
   cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
