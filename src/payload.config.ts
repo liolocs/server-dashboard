@@ -34,16 +34,18 @@ const generateURL: GenerateURL<Page> = ({ doc }) => {
 }
 
 export default buildConfig({
-  // async onInit(payload) {
-  //   const existingUsers = await payload.find({
-  //     collection: 'users',
-  //     limit: 1,
-  //   })
+  async onInit(payload) {
+    if (process.env.NODE_ENV === 'production') return
 
-  //   if (!existingUsers.docs.length) {
-  //     await seedHandler2({ payload })
-  //   }
-  // },
+    const existingUsers = await payload.find({
+      collection: 'users',
+      limit: 1,
+    })
+
+    if (!existingUsers.docs.length) {
+      await seedHandler({ payload })
+    }
+  },
   admin: {
     components: {
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
@@ -116,38 +118,15 @@ export default buildConfig({
       ]
     },
   }),
-  // db: postgresAdapter({
-  //   pool: {
-  //     connectionString: process.env.DATABASE_URI || '',
-  //   },
-  // }),
   db: sqliteAdapter({
     client: {
       url: process.env.DATABASE_URL || '',
       authToken: process.env.DATABASE_AUTH_TOKEN || '',
     },
-    // prodMigrations: [
-    //   {
-    //     name: 'initial',
-    //     up: async ({ payload, req }) => {
-    //       await seedHandler2({ payload })
-    //     },
-    //     down: async () => {},
-    //   },
-    // ],
   }),
   collections: [Pages, Users],
   cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
-  endpoints: [
-    // The seed endpoint is used to populate the database with some example data
-    // You should delete this endpoint before deploying your site to production
-    {
-      handler: seedHandler,
-      method: 'get',
-      path: '/seed',
-    },
-  ],
   globals: [Footer],
   plugins: [],
   secret: process.env.PAYLOAD_SECRET!,
