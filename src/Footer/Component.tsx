@@ -6,7 +6,12 @@ import { CMSLink } from '@/components/Link'
 import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 
 export async function Footer() {
-  const footer: Footer = await getCachedGlobal('footer')()
+  let footer: Footer | null = null
+  try {
+    footer = await getCachedGlobal('footer')()
+  } catch (error) {
+    console.error(error)
+  }
 
   const navItems = footer?.navItems || []
 

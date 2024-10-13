@@ -12,6 +12,7 @@ import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 
 export async function generateStaticParams() {
+  return []
   const payload = await getPayloadHMR({ config: configPromise })
   const pages = await payload.find({
     collection: 'pages',
