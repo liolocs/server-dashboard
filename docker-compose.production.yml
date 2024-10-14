@@ -2,10 +2,7 @@ version: '3'
 
 services:
   payload:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      target: runtime
+    image: oliviercolas/server-dashboard:latest
     ports:
       - '3000:3000'
     environment:
