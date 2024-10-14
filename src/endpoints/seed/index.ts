@@ -8,9 +8,7 @@ import { home } from './home'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-const collections: CollectionSlug[] = [
-  'pages',
-]
+const collections: CollectionSlug[] = ['pages']
 const globals: GlobalSlug[] = ['footer']
 
 // Next.js revalidation errors are normal when seeding the database without a server running
@@ -66,9 +64,17 @@ export const seed = async ({
 
   await payload.create({
     collection: 'pages',
-    data: JSON.parse(
-      JSON.stringify(home)
-    ),
+    data: JSON.parse(JSON.stringify(home)),
+    req,
+  })
+
+  payload.logger.info(`— Seeding header...`)
+
+  await payload.updateGlobal({
+    slug: 'header',
+    data: {
+      title: 'Server Dashboard',
+    },
     req,
   })
 
@@ -83,6 +89,7 @@ export const seed = async ({
             type: 'custom',
             label: 'Admin',
             url: '/admin',
+            newTab: true,
           },
         },
       ],

@@ -22,6 +22,7 @@ export interface Config {
   };
   globals: {
     footer: Footer;
+    header: Header;
   };
   locale: null;
   user: User & {
@@ -199,6 +200,16 @@ export interface Footer {
         id?: string | null;
       }[]
     | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "header".
+ */
+export interface Header {
+  id: number;
+  title?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }

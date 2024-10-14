@@ -4,13 +4,13 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
-
 import { Logo } from '@/components/Logo/Logo'
 
 interface HeaderClientProps {
+  title: string
 }
 
-export const HeaderClient: React.FC<HeaderClientProps> = () => {
+export const HeaderClient: React.FC<HeaderClientProps> = ({ title }) => {
   /* Storing the value in a useState to avoid hydration errors */
   const [theme, setTheme] = useState<string | null>(null)
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
@@ -32,7 +32,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = () => {
       {...(theme ? { 'data-theme': theme } : {})}
     >
       <Link href="/">
-        <Logo />
+        <Logo title={title} />
       </Link>
     </header>
   )

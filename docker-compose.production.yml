@@ -14,4 +14,9 @@ services:
       NEXT_PUBLIC_SERVER_URL: http://localhost:3000
       REVALIDATION_KEY: ${REVALIDATION_KEY:-demo-revalation-key}
       NEXT_PRIVATE_REVALIDATION_KEY: ${NEXT_PRIVATE_REVALIDATION_KEY:-demo-revalation-key}
+    volumes:
+      - payload_data:/home/node/app/payload.sqlite
     restart: unless-stopped
+
+volumes:
+  payload_data:

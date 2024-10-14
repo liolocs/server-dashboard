@@ -1,17 +1,15 @@
-import { getCachedGlobal } from '@/utilities/getGlobals'
-
-import type { Footer } from '@/payload-types'
-
 import { CMSLink } from '@/components/Link'
 import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 
+import configPromise from '@payload-config'
+import { getPayloadHMR } from '@payloadcms/next/utilities'
+
 export async function Footer() {
-  let footer: Footer | null = null
-  try {
-    footer = await getCachedGlobal('footer')()
-  } catch (error) {
-    console.error(error)
-  }
+  const payload = await getPayloadHMR({ config: configPromise })
+  const footer = await payload.findGlobal({
+    slug: 'footer',
+    depth: 1,
+  })
 
   const navItems = footer?.navItems || []
 
