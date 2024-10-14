@@ -9,4 +9,4 @@ node_modules
 # Payload default media upload directory
 public/media/
 
-.pnpm-store
+.pnpm-store/

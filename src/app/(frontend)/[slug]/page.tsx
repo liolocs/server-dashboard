@@ -50,17 +50,15 @@ export default async function Page({ params: paramsPromise }: Args) {
 
   // Remove this code once your website is seeded
   if (!page && slug === 'home') {
-    <div>Visit /admin route to create your first page</div>
+    ;<div>Visit /admin route to create your first page</div>
   }
-
-  const { layout } = page
 
   return (
     <article className="pt-0 pb-24">
       <PageClient />
       {/* Allows redirects for valid pages too */}
 
-      <RenderBlocks blocks={layout} />
+      <RenderBlocks blocks={page?.layout} />
     </article>
   )
 }

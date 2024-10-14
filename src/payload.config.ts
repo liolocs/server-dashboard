@@ -43,6 +43,7 @@ export default buildConfig({
     })
 
     if (!existingUsers.docs.length) {
+      console.log('Seeding database...')
       await seedHandler({ payload })
     }
   },

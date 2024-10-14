@@ -6,7 +6,7 @@ export const seedHandler = async ({ payload }: { payload: Payload }): Promise<Re
   try {
     // Create a transaction so that all seeding happens in one transaction
     // @ts-ignore
-    await seedScript({ payload, req })
+    await seedScript({ payload })
 
     return Response.json({ success: true })
   } catch (error: unknown) {
