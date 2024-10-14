@@ -48,6 +48,19 @@ export default buildConfig({
     if (!existingUsers.docs.length || !existingPages.docs.length) {
       console.log('Seeding database...')
       await seedHandler({ payload })
+
+      if (process.env.NODE_ENV === 'development') {
+        console.log('Create admin user')
+
+        await payload.create({
+          collection: 'users',
+          data: {
+            // @ts-ignore
+            email: process.env.ADMIN_EMAIL,
+            password: process.env.ADMIN_PASSWORD,
+          },
+        })
+      }
     }
   },
   admin: {
