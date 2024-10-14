@@ -16,10 +16,12 @@
     "lint:fix": "cross-env NODE_OPTIONS=--no-deprecation next lint --fix",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "reinstall": "cross-env NODE_OPTIONS=--no-deprecation rm -rf node_modules && rm pnpm-lock.yaml && pnpm --ignore-workspace install",
-    "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
+    "start": "next start",
     "typecheck": "cross-env NODE_OPTIONS=--no-deprecation tsc --noEmit"
   },
   "dependencies": {
+    "@libsql/client": "^0.14.0",
+    "@libsql/linux-arm64-musl": "^0.4.6",
     "@payloadcms/db-postgres": "beta",
     "@payloadcms/db-sqlite": "beta",
     "@payloadcms/live-preview-react": "beta",
@@ -44,6 +46,7 @@
     "graphql": "^16.8.2",
     "jsonwebtoken": "9.0.2",
     "lexical": "0.18.0",
+    "libsql": "^0.4.6",
     "lucide-react": "^0.378.0",
     "next": "15.0.0-canary.173",
     "payload": "beta",
@@ -86,5 +89,6 @@
   "overrides": {
     "@types/react": "npm:types-react@19.0.0-rc.1",
     "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
-  }
+  },
+  "packageManager": "pnpm@9.12.1+sha512.e5a7e52a4183a02d5931057f7a0dbff9d5e9ce3161e33fa68ae392125b79282a8a8a470a51dfc8a0ed86221442eb2fb57019b0990ed24fab519bf0e1bc5ccfc4"
 }

@@ -24,7 +24,7 @@ export const ContentBlock: React.FC<
 
   return (
     <div className="container my-16">
-      <div className="grid grid-cols-4 lg:grid-cols-12 gap-y-8 gap-x-16">
+      <div className="grid grid-cols-4 lg:grid-cols-12 gap-y-8 gap-x-16 text-foreground">
         {columns &&
           columns.length > 0 &&
           columns.map((col, index) => {
@@ -38,7 +38,6 @@ export const ContentBlock: React.FC<
                 key={index}
               >
                 {richText && <RichText content={richText} enableGutter={false} />}
-
 
                 {enableLink && (
                   <div className="mt-2">

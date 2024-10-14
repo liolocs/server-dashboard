@@ -12,9 +12,15 @@ importers:
 
   .:
     dependencies:
+      '@libsql/client':
+        specifier: ^0.14.0
+        version: 0.14.0
+      '@libsql/linux-arm64-musl':
+        specifier: ^0.4.6
+        version: 0.4.6
       '@payloadcms/db-postgres':
         specifier: beta
-        version: 3.0.0-beta.112(@libsql/client@0.6.2)(payload@3.0.0-beta.112(graphql@16.9.0)(monaco-editor@0.52.0)(react-dom@19.0.0-rc-3edc000d-20240926(react@19.0.0-rc-3edc000d-20240926))(react@19.0.0-rc-3edc000d-20240926)(typescript@5.6.2))(react@19.0.0-rc-3edc000d-20240926)(types-react@19.0.0-rc.1)
+        version: 3.0.0-beta.112(@libsql/client@0.14.0)(payload@3.0.0-beta.112(graphql@16.9.0)(monaco-editor@0.52.0)(react-dom@19.0.0-rc-3edc000d-20240926(react@19.0.0-rc-3edc000d-20240926))(react@19.0.0-rc-3edc000d-20240926)(typescript@5.6.2))(react@19.0.0-rc-3edc000d-20240926)(types-react@19.0.0-rc.1)
       '@payloadcms/db-sqlite':
         specifier: beta
         version: 3.0.0-beta.113(@types/pg@8.10.2)(payload@3.0.0-beta.112(graphql@16.9.0)(monaco-editor@0.52.0)(react-dom@19.0.0-rc-3edc000d-20240926(react@19.0.0-rc-3edc000d-20240926))(react@19.0.0-rc-3edc000d-20240926)(typescript@5.6.2))(pg@8.11.3)(react@19.0.0-rc-3edc000d-20240926)(types-react@19.0.0-rc.1)
@@ -84,6 +90,9 @@ importers:
       lexical:
         specifier: 0.18.0
         version: 0.18.0
+      libsql:
+        specifier: ^0.4.6
+        version: 0.4.6
       lucide-react:
         specifier: ^0.378.0
         version: 0.378.0(react@19.0.0-rc-3edc000d-20240926)
@@ -1193,8 +1202,14 @@ packages:
     peerDependencies:
       yjs: '>=13.5.22'
 
+  '@libsql/client@0.14.0':
+    resolution: {integrity: sha512-/9HEKfn6fwXB5aTEEoMeFh4CtG0ZzbncBb1e++OCdVpgKZ/xyMsIVYXm0w7Pv4RUel803vE6LwniB3PqD72R0Q==}
+
   '@libsql/client@0.6.2':
     resolution: {integrity: sha512-xRNfRLv/dOCbV4qd+M0baQwGmvuZpMd2wG2UAPs8XmcdaPvu5ErkcaeITkxlm3hDEJVabQM1cFhMBxsugWW9fQ==}
+
+  '@libsql/core@0.14.0':
+    resolution: {integrity: sha512-nhbuXf7GP3PSZgdCY2Ecj8vz187ptHlZQ0VRc751oB2C1W8jQUXKKklvt7t1LJiUTQBVJuadF628eUk+3cRi4Q==}
 
   '@libsql/core@0.6.2':
     resolution: {integrity: sha512-c2P4M+4u/4b2L02A0KjggO3UW51rGkhxr/7fzJO0fEAqsqrWGxuNj2YtRkina/oxfYvAof6xjp8RucNoIV/Odw==}
@@ -1204,16 +1219,33 @@ packages:
     cpu: [arm64]
     os: [darwin]
 
+  '@libsql/darwin-arm64@0.4.6':
+    resolution: {integrity: sha512-45i604CJ2Lubbg7NqtDodjarF6VgST8rS5R8xB++MoRqixtDns9PZ6tocT9pRJDWuTWEiy2sjthPOFWMKwYAsg==}
+    cpu: [arm64]
+    os: [darwin]
+
   '@libsql/darwin-x64@0.3.19':
     resolution: {integrity: sha512-q9O55B646zU+644SMmOQL3FIfpmEvdWpRpzubwFc2trsa+zoBlSkHuzU9v/C+UNoPHQVRMP7KQctJ455I/h/xw==}
+    cpu: [x64]
+    os: [darwin]
+
+  '@libsql/darwin-x64@0.4.6':
+    resolution: {integrity: sha512-dRKliflhfr5zOPSNgNJ6C2nZDd4YA8bTXF3MUNqNkcxQ8BffaH9uUwL9kMq89LkFIZQHcyP75bBgZctxfJ/H5Q==}
     cpu: [x64]
     os: [darwin]
 
   '@libsql/hrana-client@0.6.2':
     resolution: {integrity: sha512-MWxgD7mXLNf9FXXiM0bc90wCjZSpErWKr5mGza7ERy2FJNNMXd7JIOv+DepBA1FQTIfI8TFO4/QDYgaQC0goNw==}
 
+  '@libsql/hrana-client@0.7.0':
+    resolution: {integrity: sha512-OF8fFQSkbL7vJY9rfuegK1R7sPgQ6kFMkDamiEccNUvieQ+3urzfDFI616oPl8V7T9zRmnTkSjMOImYCAVRVuw==}
+
   '@libsql/isomorphic-fetch@0.2.5':
     resolution: {integrity: sha512-8s/B2TClEHms2yb+JGpsVRTPBfy1ih/Pq6h6gvyaNcYnMVJvgQRY7wAa8U2nD0dppbCuDU5evTNMEhrQ17ZKKg==}
+    engines: {node: '>=18.0.0'}
+
+  '@libsql/isomorphic-fetch@0.3.1':
+    resolution: {integrity: sha512-6kK3SUK5Uu56zPq/Las620n5aS9xJq+jMBcNSOmjhNf/MUvdyji4vrMTqD7ptY7/4/CAVEAYDeotUz60LNQHtw==}
     engines: {node: '>=18.0.0'}
 
   '@libsql/isomorphic-ws@0.1.5':
@@ -1224,13 +1256,27 @@ packages:
     cpu: [arm64]
     os: [linux]
 
+  '@libsql/linux-arm64-gnu@0.4.6':
+    resolution: {integrity: sha512-DMPavVyY6vYPAYcQR1iOotHszg+5xSjHSg6F9kNecPX0KKdGq84zuPJmORfKOPtaWvzPewNFdML/e+s1fu09XQ==}
+    cpu: [arm64]
+    os: [linux]
+
   '@libsql/linux-arm64-musl@0.3.19':
     resolution: {integrity: sha512-VEZtxghyK6zwGzU9PHohvNxthruSxBEnRrX7BSL5jQ62tN4n2JNepJ6SdzXp70pdzTfwroOj/eMwiPt94gkVRg==}
     cpu: [arm64]
     os: [linux]
 
+  '@libsql/linux-arm64-musl@0.4.6':
+    resolution: {integrity: sha512-whuHSYAZyclGjM3L0mKGXyWqdAy7qYvPPn+J1ve7FtGkFlM0DiIPjA5K30aWSGJSRh72sD9DBZfnu8CpfSjT6w==}
+    os: [linux]
+
   '@libsql/linux-x64-gnu@0.3.19':
     resolution: {integrity: sha512-2t/J7LD5w2f63wGihEO+0GxfTyYIyLGEvTFEsMO16XI5o7IS9vcSHrxsvAJs4w2Pf907uDjmc7fUfMg6L82BrQ==}
+    cpu: [x64]
+    os: [linux]
+
+  '@libsql/linux-x64-gnu@0.4.6':
+    resolution: {integrity: sha512-0ggx+5RwEbYabIlDBBAvavdfIJCZ757u6nDZtBeQIhzW99EKbWG3lvkXHM3qudFb/pDWSUY4RFBm6vVtF1cJGA==}
     cpu: [x64]
     os: [linux]
 
@@ -1239,8 +1285,18 @@ packages:
     cpu: [x64]
     os: [linux]
 
+  '@libsql/linux-x64-musl@0.4.6':
+    resolution: {integrity: sha512-SWNrv7Hz72QWlbM/ZsbL35MPopZavqCUmQz2HNDZ55t0F+kt8pXuP+bbI2KvmaQ7wdsoqAA4qBmjol0+bh4ndw==}
+    cpu: [x64]
+    os: [linux]
+
   '@libsql/win32-x64-msvc@0.3.19':
     resolution: {integrity: sha512-ay1X9AobE4BpzG0XPw1gplyLZPGHIgJOovvW23gUrukRegiUP62uzhpRbKNogLlUOynyXeq//prHgPXiebUfWg==}
+    cpu: [x64]
+    os: [win32]
+
+  '@libsql/win32-x64-msvc@0.4.6':
+    resolution: {integrity: sha512-Q0axn110zDNELfkEog3Nl8p9BU4eI/UvgaHevGyOiSDN7s0KPfj0j6jwVHk4oz3o/d/Gg3DRIxomZ4ftfTOy/g==}
     cpu: [x64]
     os: [win32]
 
@@ -3700,7 +3756,10 @@ packages:
 
   libsql@0.3.19:
     resolution: {integrity: sha512-Aj5cQ5uk/6fHdmeW0TiXK42FqUlwx7ytmMLPSaUQPin5HKKKuUPD62MAbN4OEweGBBI7q1BekoEN4gPUEL6MZA==}
-    cpu: [x64, arm64, wasm32]
+    os: [darwin, linux, win32]
+
+  libsql@0.4.6:
+    resolution: {integrity: sha512-F5M+ltteK6dCcpjMahrkgT96uFJvVI8aQ4r9f2AzHQjC7BkAYtvfMSTWGvRBezRgMUIU2h1Sy0pF9nOGOD5iyA==}
     os: [darwin, linux, win32]
 
   lilconfig@2.1.0:
@@ -4216,6 +4275,9 @@ packages:
   process@0.11.10:
     resolution: {integrity: sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A==}
     engines: {node: '>= 0.6.0'}
+
+  promise-limit@2.7.0:
+    resolution: {integrity: sha512-7nJ6v5lnJsXwGprnGXga4wx6d1POjvi5Qmf1ivTRxTjH4Z/9Czja/UCMLVmB9N93GeWOU93XaFaEt6jbuoagNw==}
 
   prompts@2.4.2:
     resolution: {integrity: sha512-NxNv/kLguCA7p3jE8oL2aEBsrJWgAakBpgmgK6lpPWV+WuOmY6r2/zbAVnP+T8bQlA0nzHXSJSJW0Hq7ylaD2Q==}
@@ -6355,6 +6417,17 @@ snapshots:
       lexical: 0.18.0
       yjs: 13.6.19
 
+  '@libsql/client@0.14.0':
+    dependencies:
+      '@libsql/core': 0.14.0
+      '@libsql/hrana-client': 0.7.0
+      js-base64: 3.7.7
+      libsql: 0.4.6
+      promise-limit: 2.7.0
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+
   '@libsql/client@0.6.2':
     dependencies:
       '@libsql/core': 0.6.2
@@ -6365,6 +6438,10 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
+  '@libsql/core@0.14.0':
+    dependencies:
+      js-base64: 3.7.7
+
   '@libsql/core@0.6.2':
     dependencies:
       js-base64: 3.7.7
@@ -6372,7 +6449,13 @@ snapshots:
   '@libsql/darwin-arm64@0.3.19':
     optional: true
 
+  '@libsql/darwin-arm64@0.4.6':
+    optional: true
+
   '@libsql/darwin-x64@0.3.19':
+    optional: true
+
+  '@libsql/darwin-x64@0.4.6':
     optional: true
 
   '@libsql/hrana-client@0.6.2':
@@ -6385,7 +6468,19 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
+  '@libsql/hrana-client@0.7.0':
+    dependencies:
+      '@libsql/isomorphic-fetch': 0.3.1
+      '@libsql/isomorphic-ws': 0.1.5
+      js-base64: 3.7.7
+      node-fetch: 3.3.2
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+
   '@libsql/isomorphic-fetch@0.2.5': {}
+
+  '@libsql/isomorphic-fetch@0.3.1': {}
 
   '@libsql/isomorphic-ws@0.1.5':
     dependencies:
@@ -6398,16 +6493,30 @@ snapshots:
   '@libsql/linux-arm64-gnu@0.3.19':
     optional: true
 
+  '@libsql/linux-arm64-gnu@0.4.6':
+    optional: true
+
   '@libsql/linux-arm64-musl@0.3.19':
     optional: true
 
+  '@libsql/linux-arm64-musl@0.4.6': {}
+
   '@libsql/linux-x64-gnu@0.3.19':
+    optional: true
+
+  '@libsql/linux-x64-gnu@0.4.6':
     optional: true
 
   '@libsql/linux-x64-musl@0.3.19':
     optional: true
 
+  '@libsql/linux-x64-musl@0.4.6':
+    optional: true
+
   '@libsql/win32-x64-msvc@0.3.19':
+    optional: true
+
+  '@libsql/win32-x64-msvc@0.4.6':
     optional: true
 
   '@monaco-editor/loader@1.4.0(monaco-editor@0.52.0)':
@@ -6479,13 +6588,13 @@ snapshots:
 
   '@one-ini/wasm@0.1.1': {}
 
-  '@payloadcms/db-postgres@3.0.0-beta.112(@libsql/client@0.6.2)(payload@3.0.0-beta.112(graphql@16.9.0)(monaco-editor@0.52.0)(react-dom@19.0.0-rc-3edc000d-20240926(react@19.0.0-rc-3edc000d-20240926))(react@19.0.0-rc-3edc000d-20240926)(typescript@5.6.2))(react@19.0.0-rc-3edc000d-20240926)(types-react@19.0.0-rc.1)':
+  '@payloadcms/db-postgres@3.0.0-beta.112(@libsql/client@0.14.0)(payload@3.0.0-beta.112(graphql@16.9.0)(monaco-editor@0.52.0)(react-dom@19.0.0-rc-3edc000d-20240926(react@19.0.0-rc-3edc000d-20240926))(react@19.0.0-rc-3edc000d-20240926)(typescript@5.6.2))(react@19.0.0-rc-3edc000d-20240926)(types-react@19.0.0-rc.1)':
     dependencies:
-      '@payloadcms/drizzle': 3.0.0-beta.112(@libsql/client@0.6.2)(@types/pg@8.10.2)(payload@3.0.0-beta.112(graphql@16.9.0)(monaco-editor@0.52.0)(react-dom@19.0.0-rc-3edc000d-20240926(react@19.0.0-rc-3edc000d-20240926))(react@19.0.0-rc-3edc000d-20240926)(typescript@5.6.2))(pg@8.11.3)(react@19.0.0-rc-3edc000d-20240926)(types-react@19.0.0-rc.1)
+      '@payloadcms/drizzle': 3.0.0-beta.112(@libsql/client@0.14.0)(@types/pg@8.10.2)(payload@3.0.0-beta.112(graphql@16.9.0)(monaco-editor@0.52.0)(react-dom@19.0.0-rc-3edc000d-20240926(react@19.0.0-rc-3edc000d-20240926))(react@19.0.0-rc-3edc000d-20240926)(typescript@5.6.2))(pg@8.11.3)(react@19.0.0-rc-3edc000d-20240926)(types-react@19.0.0-rc.1)
       '@types/pg': 8.10.2
       console-table-printer: 2.11.2
       drizzle-kit: 0.23.2-df9e596
-      drizzle-orm: 0.32.1(@libsql/client@0.6.2)(@types/pg@8.10.2)(pg@8.11.3)(react@19.0.0-rc-3edc000d-20240926)(types-react@19.0.0-rc.1)
+      drizzle-orm: 0.32.1(@libsql/client@0.14.0)(@types/pg@8.10.2)(pg@8.11.3)(react@19.0.0-rc-3edc000d-20240926)(types-react@19.0.0-rc.1)
       payload: 3.0.0-beta.112(graphql@16.9.0)(monaco-editor@0.52.0)(react-dom@19.0.0-rc-3edc000d-20240926(react@19.0.0-rc-3edc000d-20240926))(react@19.0.0-rc-3edc000d-20240926)(typescript@5.6.2)
       pg: 8.11.3
       prompts: 2.4.2
@@ -6564,10 +6673,10 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@payloadcms/drizzle@3.0.0-beta.112(@libsql/client@0.6.2)(@types/pg@8.10.2)(payload@3.0.0-beta.112(graphql@16.9.0)(monaco-editor@0.52.0)(react-dom@19.0.0-rc-3edc000d-20240926(react@19.0.0-rc-3edc000d-20240926))(react@19.0.0-rc-3edc000d-20240926)(typescript@5.6.2))(pg@8.11.3)(react@19.0.0-rc-3edc000d-20240926)(types-react@19.0.0-rc.1)':
+  '@payloadcms/drizzle@3.0.0-beta.112(@libsql/client@0.14.0)(@types/pg@8.10.2)(payload@3.0.0-beta.112(graphql@16.9.0)(monaco-editor@0.52.0)(react-dom@19.0.0-rc-3edc000d-20240926(react@19.0.0-rc-3edc000d-20240926))(react@19.0.0-rc-3edc000d-20240926)(typescript@5.6.2))(pg@8.11.3)(react@19.0.0-rc-3edc000d-20240926)(types-react@19.0.0-rc.1)':
     dependencies:
       console-table-printer: 2.11.2
-      drizzle-orm: 0.32.1(@libsql/client@0.6.2)(@types/pg@8.10.2)(pg@8.11.3)(react@19.0.0-rc-3edc000d-20240926)(types-react@19.0.0-rc.1)
+      drizzle-orm: 0.32.1(@libsql/client@0.14.0)(@types/pg@8.10.2)(pg@8.11.3)(react@19.0.0-rc-3edc000d-20240926)(types-react@19.0.0-rc.1)
       payload: 3.0.0-beta.112(graphql@16.9.0)(monaco-editor@0.52.0)(react-dom@19.0.0-rc-3edc000d-20240926(react@19.0.0-rc-3edc000d-20240926))(react@19.0.0-rc-3edc000d-20240926)(typescript@5.6.2)
       prompts: 2.4.2
       to-snake-case: 1.0.0
@@ -8300,6 +8409,14 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  drizzle-orm@0.32.1(@libsql/client@0.14.0)(@types/pg@8.10.2)(pg@8.11.3)(react@19.0.0-rc-3edc000d-20240926)(types-react@19.0.0-rc.1):
+    optionalDependencies:
+      '@libsql/client': 0.14.0
+      '@types/pg': 8.10.2
+      '@types/react': types-react@19.0.0-rc.1
+      pg: 8.11.3
+      react: 19.0.0-rc-3edc000d-20240926
+
   drizzle-orm@0.32.1(@libsql/client@0.6.2)(@types/pg@8.10.2)(pg@8.11.3)(react@19.0.0-rc-3edc000d-20240926)(types-react@19.0.0-rc.1):
     optionalDependencies:
       '@libsql/client': 0.6.2
@@ -9534,6 +9651,19 @@ snapshots:
       '@libsql/linux-x64-musl': 0.3.19
       '@libsql/win32-x64-msvc': 0.3.19
 
+  libsql@0.4.6:
+    dependencies:
+      '@neon-rs/load': 0.0.4
+      detect-libc: 2.0.2
+    optionalDependencies:
+      '@libsql/darwin-arm64': 0.4.6
+      '@libsql/darwin-x64': 0.4.6
+      '@libsql/linux-arm64-gnu': 0.4.6
+      '@libsql/linux-arm64-musl': 0.4.6
+      '@libsql/linux-x64-gnu': 0.4.6
+      '@libsql/linux-x64-musl': 0.4.6
+      '@libsql/win32-x64-msvc': 0.4.6
+
   lilconfig@2.1.0: {}
 
   lilconfig@3.1.2: {}
@@ -10039,6 +10169,8 @@ snapshots:
   process-warning@3.0.0: {}
 
   process@0.11.10: {}
+
+  promise-limit@2.7.0: {}
 
   prompts@2.4.2:
     dependencies:
