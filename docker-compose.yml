@@ -13,8 +13,6 @@ services:
     command: sh -c "yarn add --frozen-lockfile --ignore-scripts=false --verbose sharp && yarn install && yarn dev"
     env_file:
       - .env
-    environment:
-      DATABASE_URI: postgres://${POSTGRES_USER:-payloaduser}:${POSTGRES_PASSWORD:-payloadpass}@postgres:5432/${POSTGRES_DB:-server-dashboard}
 
 volumes:
   node_modules:
