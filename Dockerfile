@@ -32,8 +32,12 @@ COPY --from=builder /home/node/app/node_modules/.pnpm/@libsql+isomorphic-fetch@0
 COPY --from=builder /home/node/app/node_modules/.pnpm/@libsql+isomorphic-ws@0.1.5 ./node_modules/.pnpm/@libsql+isomorphic-ws@0.1.5
 COPY --from=builder /home/node/app/node_modules/.pnpm/@libsql+linux-arm64-musl@0.4.6 ./node_modules/.pnpm/@libsql+linux-arm64-musl@0.4.6
 
-COPY --from=builder /home/node/app/payload.sqlite ./payload.sqlite
+COPY --from=builder /home/node/app/data/payload.sqlite ./tmp/payload.sqlite
 
 ENV HOSTNAME=0.0.0.0
 
+# Copy the entrypoint script
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["node", "server.js"]

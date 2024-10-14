@@ -3,19 +3,20 @@ version: '3'
 services:
   payload:
     image: oliviercolas/server-dashboard:latest
+
     ports:
       - '3000:3000'
     environment:
       NODE_ENV: production
       PAYLOAD_SECRET: ${PAYLOAD_SECRET}
       PAYLOAD_PUBLIC_SERVER_URL: http://localhost:3000
-      DATABASE_URL: file:./payload.sqlite
+      DATABASE_URL: file:./data/payload.sqlite
       DATABASE_AUTH_TOKEN: ${DATABASE_AUTH_TOKEN}
       NEXT_PUBLIC_SERVER_URL: http://localhost:3000
       REVALIDATION_KEY: ${REVALIDATION_KEY:-demo-revalation-key}
       NEXT_PRIVATE_REVALIDATION_KEY: ${NEXT_PRIVATE_REVALIDATION_KEY:-demo-revalation-key}
     volumes:
-      - payload_data:/home/node/app/payload.sqlite
+      - payload_data:/home/node/app/data
     restart: unless-stopped
 
 volumes:

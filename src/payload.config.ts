@@ -36,14 +36,16 @@ const generateURL: GenerateURL<Page> = ({ doc }) => {
 
 export default buildConfig({
   async onInit(payload) {
-    if (process.env.NODE_ENV === 'production') return
-
     const existingUsers = await payload.find({
       collection: 'users',
       limit: 1,
     })
+    const existingPages = await payload.find({
+      collection: 'pages',
+      limit: 1,
+    })
 
-    if (!existingUsers.docs.length) {
+    if (!existingUsers.docs.length || !existingPages.docs.length) {
       console.log('Seeding database...')
       await seedHandler({ payload })
     }

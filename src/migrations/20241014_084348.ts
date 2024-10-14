@@ -185,6 +185,13 @@ export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`pages_id\`) REFERENCES \`pages\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
+  await payload.db.drizzle.run(sql`CREATE TABLE \`header\` (
+  	\`id\` integer PRIMARY KEY NOT NULL,
+  	\`title\` text,
+  	\`updated_at\` text,
+  	\`created_at\` text
+  );
+  `)
   await payload.db.drizzle.run(sql`CREATE INDEX \`pages_blocks_content_columns_order_idx\` ON \`pages_blocks_content_columns\` (\`_order\`);`)
   await payload.db.drizzle.run(sql`CREATE INDEX \`pages_blocks_content_columns_parent_id_idx\` ON \`pages_blocks_content_columns\` (\`_parent_id\`);`)
   await payload.db.drizzle.run(sql`CREATE INDEX \`pages_blocks_content_order_idx\` ON \`pages_blocks_content\` (\`_order\`);`)
@@ -249,4 +256,5 @@ export async function down({ payload, req }: MigrateDownArgs): Promise<void> {
   await payload.db.drizzle.run(sql`DROP TABLE \`footer_nav_items\`;`)
   await payload.db.drizzle.run(sql`DROP TABLE \`footer\`;`)
   await payload.db.drizzle.run(sql`DROP TABLE \`footer_rels\`;`)
+  await payload.db.drizzle.run(sql`DROP TABLE \`header\`;`)
 }

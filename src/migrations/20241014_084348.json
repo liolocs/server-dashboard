@@ -1546,6 +1546,43 @@
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
+    },
+    "header": {
+      "name": "header",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
     }
   },
   "enums": {},
@@ -1556,6 +1593,6 @@
   "internal": {
     "indexes": {}
   },
-  "id": "73ef051f-b0db-462a-b24c-2cf0e9eb3202",
+  "id": "68f2efcb-dc2a-48e3-8d6e-3aa8e9454320",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }
