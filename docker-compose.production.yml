@@ -9,10 +9,10 @@ services:
     environment:
       NODE_ENV: production
       PAYLOAD_SECRET: ${PAYLOAD_SECRET}
-      PAYLOAD_PUBLIC_SERVER_URL: http://localhost:3000
+      PAYLOAD_PUBLIC_SERVER_URL: ${PAYLOAD_PUBLIC_SERVER_URL}
       DATABASE_URL: file:./data/payload.sqlite
       DATABASE_AUTH_TOKEN: ${DATABASE_AUTH_TOKEN}
-      NEXT_PUBLIC_SERVER_URL: http://localhost:3000
+      NEXT_PUBLIC_SERVER_URL: ${PAYLOAD_PUBLIC_SERVER_URL}
       REVALIDATION_KEY: ${REVALIDATION_KEY:-demo-revalation-key}
       NEXT_PRIVATE_REVALIDATION_KEY: ${NEXT_PRIVATE_REVALIDATION_KEY:-demo-revalation-key}
     volumes:
