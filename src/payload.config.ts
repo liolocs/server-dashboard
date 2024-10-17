@@ -16,10 +16,10 @@ import { fileURLToPath } from 'url'
 import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types'
 import { Pages } from './collections/Pages'
 import Users from './collections/Users'
-import { seedHandler } from './endpoints/seedHandler'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { Page } from './payload-types'
+import { seedHandler } from './seed/seedHandler'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
