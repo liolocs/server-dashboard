@@ -25,7 +25,7 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 const generateTitle: GenerateTitle<Page> = ({ doc }) => {
-  return doc?.title ? `${doc.title} | Payload Website Template` : 'Payload Website Template'
+  return doc?.title ? `${doc.title}` : 'Server Dashboard'
 }
 
 const generateURL: GenerateURL<Page> = ({ doc }) => {
@@ -56,8 +56,8 @@ export default buildConfig({
           collection: 'users',
           data: {
             // @ts-ignore
-            email: process.env.ADMIN_EMAIL,
-            password: process.env.ADMIN_PASSWORD,
+            email: process.env.PAYLOAD_ADMIN_EMAIL,
+            password: process.env.PAYLOAD_ADMIN_PASSWORD,
           },
         })
       }

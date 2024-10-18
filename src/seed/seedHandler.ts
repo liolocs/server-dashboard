@@ -1,6 +1,6 @@
 import { Payload } from 'payload'
 
-import { seed as seedScript } from '@/endpoints/seed'
+import { seed as seedScript } from '@/seed'
 
 export const seedHandler = async ({ payload }: { payload: Payload }): Promise<Response> => {
   try {
