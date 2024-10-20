@@ -13,26 +13,14 @@ import { buildConfig } from 'payload'
 import sharp from 'sharp' // editor-import
 import { fileURLToPath } from 'url'
 
-import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types'
 import { Pages } from './collections/Pages'
 import Users from './collections/Users'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
-import { Page } from './payload-types'
 import { seedHandler } from './seed/seedHandler'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
-
-const generateTitle: GenerateTitle<Page> = ({ doc }) => {
-  return doc?.title ? `${doc.title}` : 'Server Dashboard'
-}
-
-const generateURL: GenerateURL<Page> = ({ doc }) => {
-  return doc?.slug
-    ? `${process.env.NEXT_PUBLIC_SERVER_URL!}/${doc.slug}`
-    : process.env.NEXT_PUBLIC_SERVER_URL!
-}
 
 export default buildConfig({
   async onInit(payload) {
