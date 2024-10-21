@@ -10,3 +10,5 @@ node_modules
 public/media/
 
 .pnpm-store/
+
+tmp/
