@@ -17,7 +17,7 @@
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "reinstall": "cross-env NODE_OPTIONS=--no-deprecation rm -rf node_modules && rm pnpm-lock.yaml && pnpm --ignore-workspace install",
     "start": "next start",
-    "typecheck": "cross-env NODE_OPTIONS=--no-deprecation tsc --noEmit",
+    "tscNE": "cross-env NODE_OPTIONS=--no-deprecation tsc --noEmit",
     "docker:update": "docker build -t oliviercolas/server-dashboard:latest . && docker push oliviercolas/server-dashboard:latest"
   },
   "dependencies": {
